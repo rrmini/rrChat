@@ -2,14 +2,32 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
 
+import TextField from "@material-ui/core/TextField";
+import "./style.css";
+// import { makeStyles } from '@material-ui/core/styles';
+
 import { SignUpLink } from "../SignUp";
+import { PasswordForgetLink } from "../PasswordForget/index";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+
+// const useStyles = makeStyles(theme => ({
+// 		container: {
+// 				display: 'flex',
+// 				flexWrap: 'wrap',
+// 		},
+// 		textField: {
+// 				marginLeft: theme.spacing(1),
+// 				marginRight: theme.spacing(1),
+// 				width: 200,
+// 		},
+// }));
 
 const SignInPage = () => (
   <div>
     <h1>SignIn</h1>
     <SignInForm />
+    <PasswordForgetLink />
     <SignUpLink />
   </div>
 );
@@ -52,16 +70,19 @@ class SignInFormBase extends Component {
 
     const isInvalid = password === "" || email === "";
 
+    // const classes = useStyles();
+
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
+      <form className={"container"} onSubmit={this.onSubmit}>
+        <TextField
+          // className={classes.textField}
           name="email"
           value={email}
           onChange={this.onChange}
           placeholder="Email Address"
           type="text"
         />
-        <input
+        <TextField
           name="password"
           value={password}
           onChange={this.onChange}
